@@ -35,29 +35,15 @@ function cadastrarjogador(){
   var pontucao = 0;
   var iresp;
   var ird;
-    /*palavras[0]  = "carteira";
-    palavras[1]  = "brasil";
-    palavras[2]  = "amorzinho";
-    palavras[3]  = "fresquinho";
-    palavras[4]  = "andrezinho";
-    palavras[5]  = "bobeira";
-    palavras[6]  = "marcos";
-    palavras[7]  = "selio";
-    palavras[8]  = "jogo";
-    palavras[9]  = "mapa";
-    palavras[10] = "babado";
-    palavras[11] = "ana";
-    palavras[12] = "critico";
-    palavras[13] = "windows";
-    palavras[14] = "linux";
-    palavras[15] = "macaco";
-    palavras[16] = "panela";
-    palavras[17] = "frederico";
-    palavras[18] = "fofura";
-    palavras[19] = "grafico";
-    palavras[20] = "mula";
-    palavras[21] = "cavalo";
-    palavras[22] = "escola";*/
+  // Variaveis GLOBAIS
+  var  k;
+  var dj  = document.getElementById('jg');
+  var erro = 1;
+  var d = "<pre><font class=gameover>";
+  var iconte ;
+  var ki ;
+  var p = new Array();
+    
 
 
 function carregarpalavras() {
@@ -104,65 +90,6 @@ function carregarpalavras() {
     });
 }
 
-
-
-	// Variaveis GLOBAIS
-    var  k;
-    //var iconte = Math.floor((Math.random() * palavras.length) + 1)  ;
-    var dj  = document.getElementById('jg');
-    var erro = 1;
-    var d = "<pre><font class=gameover>";
-    var iconte ;//= Math.floor(Math.random() * palavras.length);
-    
-    var ki ;
-
-      // adicinando adicionar o valor "__" 
-	//no vetor que armazena a palavra sorteada;
-/*	var itempodejogo = 0;
-    for(k=0;k<palavras[iconte].length;k++){
-
-        ki[k]="__";
-   }*/
-var itempodejogo = 0;
-var p = new Array();
-function tempodejogo(){
-  setTimeout("tempodejogo()",1000);
-  itempodejogo++;
-}
-/*
--------------------
-      SORTEIO,
-	  essa funcao eh chamada
-	  todas as vezes que a 
-	  pagina eh chamada ou
-	  quando atualiza a pagina
-	  e no termino do jogo
-	  precionando o botao
-	  NOVO JOGO; 
-
-*/	
-
-	
-function sorteio() {
-
-/*       
-    var djc = "<table cellpadding=2  ";
-        djc = djc + "cellspacing=4 border=0 width=390 ";
-        djc = djc + " height=40 bgcolor=#ecf0f1 style='border: ";
-        djc = djc + " 1px solid #666666;'><tr>";
-       
-    for(k = 0; k < palavras[iconte].length; k++){
-   		  p[k] = k;
-		    djc = djc + "<td style='border: 0px solid #000000;' ";
-        djc = djc + " bgcolor=#ecf0f1 align=center ";
-        djc = djc + " valign=middle class=visao> __ </td>";
-	}
-        djc = djc + "</tr></table><br>";
- 	    dj.innerHTML = djc;
-      tempodejogo();
-*/
-	tempodejogo();	
-}
 /*
 -------------------
       VERIFICA ERRO
@@ -198,16 +125,7 @@ function verificaerro(){
     default:
     var tecladaosome = document.getElementById('tecladao');
         tecladaosome.style.display = 'none';
-        /*
-        d = d + "        ";
-        d = d + "\n\n<b>       ";
-        d = d + "GAME OVER</b>".blink() +"  \n\n";
-        d = d + "    palavra: " + palavras[iconte];
-        d = d + "\n\n      ";
-        d = d + "<a href=# onclick='window.location.reload( false );' ";
-        d = d + "  tyle='border: ";
-        d = d + " 1px solid #000000;' class=gameover>[ NOVO JOGO ]</a>";
-        */
+
         d = "<img src='gover.gif'><br><br>";
         d = d + "<font class=gameover><b>GAME OVER</b></font><br>";
         d = d + "<font class=gameover><blink>Jogador: "+sessionStorage.getItem('jnome').toUpperCase();" </blink><font/> "
@@ -288,6 +206,7 @@ function jogar(letra){
           erro = 1;
           iresp = iconte;
           ird = 1;
+
           d = "<pre><font class=gameover>";
           var nb = document.getElementById('g');
           nb.innerHTML = d;
@@ -297,33 +216,9 @@ function jogar(letra){
             document.getElementById(String.fromCharCode(i)).style.color = '#000000';
           }
           carregarpalavras();
-          /*  var winmsg = "<br><img src='gwin.gif'>";
-                winmsg = winmsg + "<br><br><font class=gameover>Palavra revelada: <b><blink>";
-                winmsg = winmsg + palavras[iconte].toUpperCase() + "</blink>";
-                winmsg = winmsg + "<br><br>PARABÉNS VOCÊ VENCEU!!!<br><br>";
-                winmsg = winmsg + "<div class='input-group'><span class='input-group-btn'><button class='btn btn-default' type='button'><a href=#   onclick='window.location.reload( false );' ";
-                winmsg = winmsg + "class=gameover>NOVO JOGO</a></button></span></div><!-- /input-group -->";
-              
-            var winG = document.getElementById('g');
-                winG.innerHTML =  winmsg;
-               var tsome = document.getElementById('tecladao');
-                   tsome.style.display = 'none';
-
-
-				   
-				var stempo = window.open("", "forca", '"toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=500,width=400,height=100"');
-				
-				    if(itempodejogo < 30) {
-						stempo.document.write("<center><font style='font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif;font-color:#ffffff;color:#ffffff;font-weight:bold; text-decoration : none;'><b>PARABENS seu tempo foi de ("+itempodejogo+")seg.<br><img src='gwin.gif'>"); 
-					}else {
-					      if(itempodejogo < 60){
-						 stempo.document.write("<center><font style='font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif;font-color:#ffffff;color:#ffffff;font-weight:bold; text-decoration : none;'><b>eh vc foi mais ou menos, mas mesmo assim PARABENS seu tempo foi de ("+itempodejogo+")seg.<br><img src='gwin.gif'>"); 
-						  } else {
-						         stempo.document.write("<center><font style='font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif;font-color:#ffffff;color:#ffffff;font-weight:bold; text-decoration : none;'><b></b>Ateh ganhou, mas es MUITO FRACO.. seu tempo foi de ("+itempodejogo+")seg.<br><img src='gwin.gif'>"); 
-								  }*/
+          
 					}			   
-					/*stempo.document.bgColor="green"
-					stempo.document.close() */		  
+						  
      }
    
 
