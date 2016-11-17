@@ -43,7 +43,6 @@ function cadastrarjogador(){
   var iconte ;
   var ki ;
   var p = new Array();
-    
 
 
 function carregarpalavras() {
@@ -61,7 +60,7 @@ function carregarpalavras() {
                        
                      }    
                      max = j.length + 1;
-                     palavras.splice(iresp, ird);
+                     //palavras.splice(iresp, ird);
                      iconte = Math.floor(Math.random() * palavras.length);
                      ki = new Array(palavras[iconte].length); 
                      $('#pergunta').html(pergunta[iconte]);
@@ -125,14 +124,16 @@ function verificaerro(){
     default:
     var tecladaosome = document.getElementById('tecladao');
         tecladaosome.style.display = 'none';
-
+        
         d = "<img src='gover.gif'><br><br>";
         d = d + "<font class=gameover><b>GAME OVER</b></font><br>";
         d = d + "<font class=gameover><blink>Jogador: "+sessionStorage.getItem('jnome').toUpperCase();" </blink><font/> "
+        d = d + "<font class=gameover><blink>Pontuação: <span id='pts'>"+pontucao+"<span/></blink><font/>"
         d = d + "<font class=gameover> Palavra: <blink> " + palavras[iconte].toUpperCase() +"</blink></font>";
         d = d + "<br>";
-        d = d + "<div class='input-group'><span class='input-group-btn'><button class='btn btn-default' type='button'><a href=#   onclick='window.location.reload( false );' ";
-        d = d + "class=gameover>NOVO JOGO</a></button></span></div><!-- /input-group -->";
+        d = d + "<div class='input-group'><span class='input-group-btn'><button class='btn btn-default' type='button'><a href=# onclick='window.location.reload( false );' ";
+        d = d + "class=gameover>Novo Jogo</a></button></span>";
+        d = d + "<span class='input-group-btn'><button class='btn btn-default' type='button'><a href=index.html  onclick='cadranking();' class=gameover>Desistir</a></button></span></div><!-- /input-group -->";
        
 		
   }
@@ -140,6 +141,20 @@ function verificaerro(){
 	// criar boneco para a forca;  
         m.innerHTML = d;
         erro++;		
+}
+//função que grava a pontuaçao no banco via ajax
+function cadranking(){
+  $.ajax({
+            type: "POST",
+            url: "http://localhost:1262/api/ranking/inserir",
+            dataType: "json",
+            async: false,
+            data: {"id": 0, "idJogador": sessionStorage.getItem('idjogador'), "pontucao": pontucao, "nomeJogador": ""},
+            success:function(reortno){
+              console.log(reortno);
+              
+            }
+          });
 }
 /*
 -------------------
@@ -206,7 +221,6 @@ function jogar(letra){
           erro = 1;
           iresp = iconte;
           ird = 1;
-
           d = "<pre><font class=gameover>";
           var nb = document.getElementById('g');
           nb.innerHTML = d;
