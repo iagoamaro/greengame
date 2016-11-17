@@ -133,7 +133,7 @@ function verificaerro(){
         d = d + "<br>";
         d = d + "<div class='input-group'><span class='input-group-btn'><button class='btn btn-default' type='button'><a href=# onclick='window.location.reload( false );' ";
         d = d + "class=gameover>Novo Jogo</a></button></span>";
-        d = d + "<span class='input-group-btn'><button class='btn btn-default' type='button'><a href=index.html  onclick='cadranking();' class=gameover>Desistir</a></button></span></div><!-- /input-group -->";
+        d = d + "<span class='input-group-btn'><button class='btn btn-default' type='button'><a href=index.html  onclick='cadranking(pontucao);' class=gameover>Desistir</a></button></span></div><!-- /input-group -->";
        
 		
   }
@@ -143,13 +143,13 @@ function verificaerro(){
         erro++;		
 }
 //função que grava a pontuaçao no banco via ajax
-function cadranking(){
+function cadranking(pts){
   $.ajax({
             type: "POST",
             url: "http://localhost:1262/api/ranking/inserir",
             dataType: "json",
             async: false,
-            data: {"id": 0, "idJogador": sessionStorage.getItem('idjogador'), "pontucao": pontucao, "nomeJogador": ""},
+            data: {"id": 0, "idJogador": sessionStorage.getItem('idjogador'), "pontuacao": pts, "nomeJogador": ""},
             success:function(reortno){
               console.log(reortno);
               
